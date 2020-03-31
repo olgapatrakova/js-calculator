@@ -1,7 +1,7 @@
 const exampleAdditionInput = {
-  num1: 3,
-  num2: 5,
-  operation: '+',
+  num1: 5,
+  num2: 3,
+  operation: 'find a remainder',
 };
 
 console.log('Welcome to the Calculator program! Which operator would you like to use?');
@@ -19,7 +19,7 @@ if (!operators.includes(exampleAdditionInput.operation)) {
   console.log('Please choose to add (+), subtract (-), multiply (*), divide (/), exponentiate (^) or find a remainder (%)!')
 }
 
-// Check if user input is not a letter
+// Check if user input is not a letter for numbers
 function input_check(number) {
   if (!String(number).match(/[-]?\d+(\.\d+)?/)) {
     console.log('Please enter a valid number => ');
@@ -30,11 +30,55 @@ function input_check(number) {
 input_check(exampleAdditionInput.num1);
 input_check(exampleAdditionInput.num2);
 
-console.log('Here is the result of the calculation.')
+console.log('Here is the result of the calculation:')
 
 // Output the result depending on the chosen operation
 
 function operation(num1, num2, operation) {
-  const result;
-  
+  let result;
+  switch(operation) {
+    case 'add':
+    case '+':
+      result = `${num1} + ${num2} = ${num1 + num2}`;
+      break;
+
+    case 'subtract':
+    case '-':
+      result = `${num1} - ${num2} = ${num1 - num2}`;
+      break;
+
+    case 'multiply':
+    case '*':
+      result = `${num1} * ${num2} = ${num1 * num2}`;
+      break;
+
+    case 'divide':
+    case '/':
+      // Handle the division by zero case
+      if (num2 === 0) {
+        result = 'Error! Division by zero';
+        break;
+      }
+      result = num1 / num2;
+      break;
+
+    case 'exponify':
+    case '^':
+      // Show the process of exponentiation
+      let first_part = `${num1} * `.repeat(num2 - 1);
+      result = first_part + `${num1} = ${num1 ** num2}`;
+      break;
+        
+    case 'remainder':
+    case 'find a remainder':
+    case 'find remainder':
+    case '%':
+      result = `${num1} % ${num2} = ${num1 % num2}`;
+      break;
+    
+    default:
+      result = `Invalid input`
+  }
+  return result
 }
+console.log(operation(exampleAdditionInput.num1, exampleAdditionInput.num2, exampleAdditionInput.operation))
