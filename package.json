@@ -1,0 +1,18 @@
+{
+  "name": "js-calculator",
+  "version": "1.0.0",
+  "main": "calculator.js",
+  "dependencies": {
+    "prompt": "^1.0.0"
+  },
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/olgapatrakova/js-calculator.git"
+  },
+  "author": "Olga Patrakova",
+  "bugs": {
+    "url": "https://github.com/olgapatrakova/js-calculator/issues"
+  },
+  "homepage": "https://github.com/olgapatrakova/js-calculator#readme"
+}
