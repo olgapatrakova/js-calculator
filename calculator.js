@@ -1,57 +1,73 @@
-const exampleAdditionInput = {
-  num1: 5,
-  num2: 3,
-  operation: 'find a remainder',
-};
+// This line "loads" the prompt package and puts it into a variable we can use called prompt
+const prompt = require('prompt');
 
-console.log('Welcome to the Calculator program! Which operator would you like to use?');
+console.log('Welcome to the Calculator program! Please provide 2 integers or floats and then choose an operator');
 console.log('1. add (+)');
 console.log('2. subtract (-)');
 console.log('3. multiply (*)');
 console.log('4. divide (/)');
 console.log('5. exponify (^)');
-console.log('6. find a remainder from a division (%)');
+console.log('6. find a remainder (%)');
 
-// Check if a valid operator is chosen
-const operators = ["add", "+", "subtract", "-", "multiply", "*", "divide", "/", "remainder", "find a remainder", "%", "exponify", "^"];
+const calculateUserInput = function(error, promptInput) {
+  console.log(operation(Number(promptInput.num1), Number(promptInput.num2), promptInput.operator))
+}  
 
-if (!operators.includes(exampleAdditionInput.operation)) {
-  console.log('Please choose to add (+), subtract (-), multiply (*), divide (/), exponentiate (^) or find a remainder (%)!')
-}
+//start the prompt
+prompt.start();
 
-// Check if user input is not a letter for numbers
-function input_check(number) {
-  if (!String(number).match(/[-]?\d+(\.\d+)?/)) {
-    console.log('Please enter a valid number => ');
+//collect two numbers an operation conforming to the schema
+//then call the function `calculator` with the user input
+const schema = {
+  properties: {
+    num1: {
+      pattern: /[-]?\d+(\.\d+)?/,
+      message: 'Num1 must be an integer or float',
+      required: true
+    },
+    num2: {
+      pattern: /[-]?\d+(\.\d+)?/,
+      message: 'Num2 must be an integer or float',
+      required: true
+    },
+    operator: {
+      enum: ["1", "1.", "add", "+", "2", "2.", "subtract", "-", "3", "3.", "multiply", "*", "4", "4.", "divide", "/", "5", "5.", "exponify", "^", "6", "6.", "remainder", "find a remainder", "find remainder", "%"],
+      message: 'Invalid operator. Try again',
+      required: true
+    }
   }
-  return true;
-}
+};
+prompt.get(schema, calculateUserInput);
 
-input_check(exampleAdditionInput.num1);
-input_check(exampleAdditionInput.num2);
-
-console.log('Here is the result of the calculation:')
 
 // Output the result depending on the chosen operation
-
-function operation(num1, num2, operation) {
+const operation = function(num1, num2, operation) {
+  console.log('Here is the result of the calculation:')
   let result;
   switch(operation) {
+    case '1':
+    case '1.':
     case 'add':
     case '+':
       result = `${num1} + ${num2} = ${num1 + num2}`;
       break;
 
+    case '2':
+    case '2.':
     case 'subtract':
     case '-':
       result = `${num1} - ${num2} = ${num1 - num2}`;
       break;
 
+    case '3':
+    case '3.':
     case 'multiply':
     case '*':
       result = `${num1} * ${num2} = ${num1 * num2}`;
       break;
 
+    case '4':
+    case '4.':
     case 'divide':
     case '/':
       // Handle the division by zero case
@@ -62,13 +78,17 @@ function operation(num1, num2, operation) {
       result = num1 / num2;
       break;
 
+    case '5':
+    case '5.':
     case 'exponify':
     case '^':
       // Show the process of exponentiation
-      let first_part = `${num1} * `.repeat(num2 - 1);
-      result = first_part + `${num1} = ${num1 ** num2}`;
+      let exponentiationProcess = `${num1} * `.repeat(num2 - 1);
+      result = `${num1} ^ ${num2} = ` + exponentiationProcess + `${num1} = ${num1 ** num2}`;
       break;
         
+    case '6':
+    case '6.':
     case 'remainder':
     case 'find a remainder':
     case 'find remainder':
@@ -81,4 +101,3 @@ function operation(num1, num2, operation) {
   }
   return result
 }
-console.log(operation(exampleAdditionInput.num1, exampleAdditionInput.num2, exampleAdditionInput.operation))
