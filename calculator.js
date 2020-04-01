@@ -10,7 +10,7 @@ console.log('5. exponify (^)');
 console.log('6. find a remainder (%)');
 
 const calculateUserInput = function(error, promptInput) {
-  console.log(operation(Number(promptInput.num1), Number(promptInput.num2), promptInput.operator))
+  console.log(operation(Number(promptInput.num1), Number(promptInput.num2), promptInput.operator.toLowerCase()))
 }  
 
 //start the prompt
@@ -21,19 +21,31 @@ prompt.start();
 const schema = {
   properties: {
     num1: {
+      // The number can also be a float
+      description: 'Enter the 1st number',
       pattern: /[-]?\d+(\.\d+)?/,
       message: 'Num1 must be an integer or float',
-      required: true
+      required: true,
+      allowEmpty: false
     },
     num2: {
+      description: 'Enter the 2nd number',
       pattern: /[-]?\d+(\.\d+)?/,
       message: 'Num2 must be an integer or float',
-      required: true
+      required: true,
+      allowEmpty: false
     },
     operator: {
-      enum: ["1", "1.", "add", "+", "2", "2.", "subtract", "-", "3", "3.", "multiply", "*", "4", "4.", "divide", "/", "5", "5.", "exponify", "^", "6", "6.", "remainder", "find a remainder", "find remainder", "%"],
+      description: 'Enter an operation',
+      // Handling all cases (uppercase, capitals) for the operations 
+      conform: function (value) {
+        lowercased = value.toLowerCase()
+        const operators = ["1", "1.", "add", "+", "2", "2.", "subtract", "-", "3", "3.", "multiply", "*", "4", "4.", "divide", "/", "5", "5.", "exponify", "^", "6", "6.", "remainder", "find a remainder", "find remainder", "%"]
+        return operators.includes(lowercased)
+      },
       message: 'Invalid operator. Try again',
-      required: true
+      required: true,
+      allowEmpty: false
     }
   }
 };
@@ -75,8 +87,9 @@ const operation = function(num1, num2, operation) {
         result = 'Error! Division by zero';
         break;
       }
+      // Round some really long numbers
       let notRounded = num1 / num2;
-      result = Math.round(notRounded * 10) / 10
+      result = `${num1} / ${num2} = ${Math.round(notRounded * 1000) / 1000}`
       break;
 
     case '5':
