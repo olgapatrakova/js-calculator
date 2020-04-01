@@ -40,7 +40,7 @@ const schema = {
 prompt.get(schema, calculateUserInput);
 
 
-// Output the result depending on the chosen operation
+// Make calculations depending on the chosen operation
 const operation = function(num1, num2, operation) {
   console.log('Here is the result of the calculation:')
   let result;
@@ -75,7 +75,8 @@ const operation = function(num1, num2, operation) {
         result = 'Error! Division by zero';
         break;
       }
-      result = num1 / num2;
+      let notRounded = num1 / num2;
+      result = Math.round(notRounded * 10) / 10
       break;
 
     case '5':
