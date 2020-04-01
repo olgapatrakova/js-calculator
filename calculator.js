@@ -24,14 +24,14 @@ const schema = {
       // The number can also be a float
       description: 'Enter the 1st number',
       pattern: /[-]?\d+(\.\d+)?/,
-      message: 'Num1 must be an integer or float',
+      message: '1st number must be an integer or float',
       required: true,
       allowEmpty: false
     },
     num2: {
       description: 'Enter the 2nd number',
       pattern: /[-]?\d+(\.\d+)?/,
-      message: 'Num2 must be an integer or float',
+      message: '2nd number must be an integer or float',
       required: true,
       allowEmpty: false
     },
