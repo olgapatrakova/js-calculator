@@ -17,7 +17,7 @@ const calculateUserInput = function(error, promptInput) {
 prompt.start();
 
 //collect two numbers an operation conforming to the schema
-//then call the function `calculator` with the user input
+//then call the function `calculateUserInput` with the user input
 const schema = {
   properties: {
     num1: {
@@ -109,9 +109,6 @@ const operation = function(num1, num2, operation) {
     case '%':
       result = `${num1} % ${num2} = ${num1 % num2}`;
       break;
-    
-    default:
-      result = `Invalid input`
   }
   return result
 }
