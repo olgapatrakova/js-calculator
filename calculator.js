@@ -11,7 +11,7 @@ console.log('6. find a remainder (%)');
 
 const calculateUserInput = function(error, promptInput) {
   console.log(operation(Number(promptInput.num1), Number(promptInput.num2), promptInput.operator.toLowerCase()))
-}  
+};  
 
 //start the prompt
 prompt.start();
@@ -109,6 +109,6 @@ const operation = function(num1, num2, operation) {
     case '%':
       result = `${num1} % ${num2} = ${num1 % num2}`;
       break;
-  }
-  return result
-}
+  };
+  return result;
+};
